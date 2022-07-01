@@ -1,0 +1,17 @@
+# ↓↓ Please substitute this section by your own CI service definition ↓↓
+# https://docs.cloudbees.com/docs/cloudbees-codeship/latest/pro-builds-and-configuration/services
+ci:
+  image: alpine
+# ↑↑ Please substitute this section by your own CI service definition ↑↑
+
+init-container:
+  build:
+    context: .
+    dockerfile: docker/init-container/Dockerfile
+    args:
+      project_name: SplashThat/jwt-claims-to-headers-kong-plugin
+
+dockercfg-generator-us-east-1:
+  image: codeship/aws-ecr-dockercfg-generator
+  add_docker: true
+  encrypted_env_file: codeship_vars.encrypted
