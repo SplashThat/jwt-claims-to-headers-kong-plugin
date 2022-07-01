@@ -1,0 +1,24 @@
+- name: CI/CD
+  type: serial
+  steps:
+    # ↓↓ Please substitute this section by your own CI steps ↓↓
+    # https://docs.cloudbees.com/docs/cloudbees-codeship/latest/pro-builds-and-configuration/steps
+    - name: Continuous Integration
+      type: parallel
+      steps:
+        - name: Step 1
+          command: echo 'Add here your own CI steps'
+          service: ci
+    # ↑↑ Please substitute this section by your own CI steps ↑↑
+
+    - name: Continuous Delivery
+      type: serial
+      tag: ^(develop|release|main)$
+      steps:
+        - name: Push initContainer To ECR - commit hash tag
+          service: init-container
+          type: push
+          image_name: 382093569472.dkr.ecr.us-east-1.amazonaws.com/jwt-claims-to-headers-kong-plugin-initcontainer
+          image_tag: "{{ .Branch }}-{{ .CommitID }}"
+          registry: https://382093569472.dkr.ecr.us-east-1.amazonaws.com
+          dockercfg_service: dockercfg-generator-us-east-1
