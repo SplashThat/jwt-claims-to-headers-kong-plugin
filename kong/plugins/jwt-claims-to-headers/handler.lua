@@ -3,7 +3,7 @@ local jwtParser = require "kong.plugins.jwt.jwt_parser"
 -- ensure the priority is lower than the Jwt plugin, which has a priority of 1005
 local JwtClaimsToHeadersHandler = {
   VERSION  = "1.0.0-1",
-  PRIORITY = 10,
+  PRIORITY = 1200,
 }
 
 -- local functions ------------------------------
@@ -130,6 +130,9 @@ function JwtClaimsToHeadersHandler:access(config)
         for key, value in pairs(claims_table) do
             local header = header_for_claim(key, config)
             if header ~= nil then
+                if type(value) == "table" then
+                    value = table.concat(value,",")
+                end
                 kong.log.debug("Set header: '", header, "' to value: '", value, "'")
                 kong.service.request.set_header(header, value)
             end
