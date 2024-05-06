@@ -55,6 +55,9 @@ return {
                 {
                     uri_param_names = {
                         type = "array",
+                        elements = {
+                            type = "string"
+                        },
                         default = {"jwt"}
                     }
                 },
