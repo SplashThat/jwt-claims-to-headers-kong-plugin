@@ -50,12 +50,12 @@ return {
                         default = {"jwt"}
                     }
                 },
-                {
-                    cookie_names = {
-                        type = "array",
-                        default = {}
-                    }
-                }
+                --{
+                --    cookie_names = {
+                --        type = "array",
+                --        default = {}
+                --    }
+                --}
             },
         }}
     }
