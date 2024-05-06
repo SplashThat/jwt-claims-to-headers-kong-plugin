@@ -58,19 +58,19 @@ end
 
 local function header_for_claim(claim_name, config)
 
-    -- if the config includes a table, claims_to_headers_table, that specifies a map of claims to headers,
+    -- if the config includes a table, claims_to_headers_map, that specifies a map of claims to headers,
     -- return the header for this claim name.
     -- If a table exists, but there is no mapping for this claim, return nil
     -- Otherwise, return a concatenation of the header_prefix and the key name.
     -- The header is specified in config.header_prefix.
 
     local header = nil
-    local claims_to_headers_table = config.claims_to_headers_table
+    local claims_to_headers_map = config.claims_to_headers_map
     local header_prefix = config.header_prefix or defaultHeaderPrefix
 
-    if claims_to_headers_table ~= nil then
-        if claims_to_headers_table[claim_name] ~= nil then
-            header = claims_to_headers_table[claim_name]
+    if claims_to_headers_map ~= nil then
+        if claims_to_headers_map[claim_name] ~= nil then
+            header = claims_to_headers_map[claim_name]
         end
     else
         header = header_prefix .. claim_name

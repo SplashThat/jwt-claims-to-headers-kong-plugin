@@ -28,20 +28,28 @@ return {
                         default = defaultHeaderPrefix
                     }
                 },
+                --{
+                --    claims_to_headers_table = {
+                --        type = "table",
+                --        default = nil,
+                --        schema = {},
+                --        new_type = {
+                --            type = "map",
+                --            keys = {
+                --                type = "string"
+                --            },
+                --            values = {
+                --                type = "string"
+                --            }
+                --        }
+                --    },
+                --},
                 {
-                    claims_to_headers_table = {
-                        type = "table",
-                        default = nil,
-                        schema = {},
-                        new_type = {
-                            type = "map",
-                            keys = {
-                                type = "string"
-                            },
-                            values = {
-                                type = "string"
-                            }
-                        }
+                    claims_to_headers_map = {
+                        type = "map",
+                        keys = { type = "string" },
+                        values = { type = "string" },
+                        default = nil
                     },
                 },
                 {
