@@ -28,15 +28,15 @@ local function retrieve_token(conf)
         end
     end
 
-    if conf.cookie_names ~= nil then
-        local var = ngx.var
-        for _, v in ipairs(conf.cookie_names) do
-            local cookie = var["cookie_" .. v]
-            if cookie and cookie ~= "" then
-                return cookie
-            end
-        end
-    end
+    --if conf.cookie_names ~= nil then
+    --    local var = ngx.var
+    --    for _, v in ipairs(conf.cookie_names) do
+    --        local cookie = var["cookie_" .. v]
+    --        if cookie and cookie ~= "" then
+    --            return cookie
+    --        end
+    --    end
+    --end
 
     local authorization_header = kong.request.get_header("authorization")
     if authorization_header then
