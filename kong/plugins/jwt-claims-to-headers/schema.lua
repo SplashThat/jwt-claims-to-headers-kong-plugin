@@ -1,4 +1,5 @@
-defaultHeaderPrefix = "X-Jwt-Claim-"
+local typedefs = require "kong.db.schema.typedefs"
+local defaultHeaderPrefix = "X-Jwt-Claim-"
 
 --- Schema for config:
 -- This plugin includes a config for setting the header_prefix, and a config for setting a
@@ -8,34 +9,55 @@ defaultHeaderPrefix = "X-Jwt-Claim-"
 -- be used in this plugin, to tell the plugin where to find the jwt.
 
 return {
-    no_consumer = true, -- this plugin will only be applied to Services or Routes,
+    name = "JWT claims to headers",
     fields = {
-        header_prefix = {
-            type = "string",
-            default = defaultHeaderPrefix
+        {
+          -- this plugin will only be applied to Services or Routes
+          consumer = typedefs.no_consumer
         },
-        claims_to_headers_table = {
-            type = "table",
-            default = nil,
-            schema = {},
-            new_type = {
-                type = "map",
-                keys = {
-                    type = "string"
+        {
+          -- this plugin will only run within Nginx HTTP module
+          protocols = typedefs.protocols_http
+        },
+        { config = {
+            type = "record",
+            fields = {
+                {
+                    header_prefix = {
+                        type = "string",
+                        default = defaultHeaderPrefix
+                    }
                 },
-                values = {
-                    type = "string"
+                {
+                    claims_to_headers_table = {
+                        type = "table",
+                        default = nil,
+                        schema = {},
+                        new_type = {
+                            type = "map",
+                            keys = {
+                                type = "string"
+                            },
+                            values = {
+                                type = "string"
+                            }
+                        }
+                    },
+                },
+                {
+                    uri_param_names = {
+                        type = "array",
+                        default = {"jwt"}
+                    }
+                },
+                {
+                    cookie_names = {
+                        type = "array",
+                        default = {}
+                    }
                 }
-            }
-        },
-        uri_param_names = {
-            type = "array",
-            default = {"jwt"}
-        },
-        cookie_names = {
-            type = "array",
-            default = {}
-        }
+            },
+        }}
     }
 
     -- ,
