@@ -45,7 +45,7 @@ return {
                 --    },
                 --},
                 {
-                    claims_to_headers_map = {
+                    claims_to_headers_table = {
                         type = "map",
                         keys = { type = "string" },
                         values = { type = "string" },
