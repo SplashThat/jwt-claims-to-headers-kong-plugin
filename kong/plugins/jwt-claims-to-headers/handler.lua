@@ -65,7 +65,7 @@ local function header_for_claim(claim_name, config)
     -- The header is specified in config.header_prefix.
 
     local header = nil
-    local claims_to_headers_map = config.claims_to_headers_map
+    local claims_to_headers_map = config.claims_to_headers_table
     local header_prefix = config.header_prefix or defaultHeaderPrefix
 
     if claims_to_headers_map ~= nil then
