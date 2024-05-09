@@ -95,7 +95,7 @@ local function claims(jwt, config)
 end
 
 function JwtClaimsToHeadersHandler:new()
-    JwtClaimsToHeadersHandler.super.new(self, "jwt-claims-to-headers")
+    BasePlugin.new(self, "jwt-claims-to-headers")
 end
 
 -- Plugin functions ------------------------------
@@ -105,7 +105,6 @@ end
 -- If there is no jwt, log an info message and return
 -- @param config Plugin configuration
 function JwtClaimsToHeadersHandler:access(config)
-    JwtClaimsToHeadersHandler.super.access(self)
 
     local jwt, err = retrieve_token(config)
     if err ~= nil then
